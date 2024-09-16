@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ReqForm - Levantamento de Requisitos</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>ReqForm - Questionário para Levantamento de Requisitos</h1>
+        <form id="questionario">
+            <!-- Informações Gerais -->
+            <h2>Informações Gerais</h2>
+            <label for="nomeProjeto">1. Nome do Projeto:</label>
+            <input type="text" id="nomeProjeto" placeholder="Digite o nome do projeto" required>
+
+            <label for="objetivoProjeto">2. Objetivo do Projeto:</label>
+            <textarea id="objetivoProjeto" placeholder="Descreva o objetivo do projeto" required></textarea>
+
+            <label for="stakeholders">3. Stakeholders (Envolvidos):</label>
+            <input type="text" id="stakeholders" placeholder="Informe os stakeholders principais" required>
+
+            <!-- Requisitos Funcionais -->
+            <h2>Requisitos Funcionais</h2>
+            <label for="funcionalidades">4. Funcionalidades Essenciais:</label>
+            <textarea id="funcionalidades" placeholder="Liste as funcionalidades essenciais" required></textarea>
+
+            <label for="processos">5. Processos que o Sistema Deve Automatizar:</label>
+            <textarea id="processos" placeholder="Descreva os processos a serem automatizados" required></textarea>
+
+            <label for="regrasNegocio">6. Regras de Negócio:</label>
+            <textarea id="regrasNegocio" placeholder="Informe as regras de negócio" required></textarea>
+
+            <label for="integracoes">7. Integrações Necessárias:</label>
+            <textarea id="integracoes" placeholder="Descreva as integrações necessárias" required></textarea>
+
+            <label for="relatorios">8. Relatórios e Dashboards:</label>
+            <textarea id="relatorios" placeholder="Descreva os relatórios e dashboards necessários" required></textarea>
+
+            <!-- Requisitos Não Funcionais -->
+            <h2>Requisitos Não Funcionais</h2>
+            <label for="performance">9. Performance:</label>
+            <textarea id="performance" placeholder="Descreva os requisitos de desempenho" required></textarea>
+
+            <label for="seguranca">10. Segurança:</label>
+            <textarea id="seguranca" placeholder="Requisitos de segurança" required></textarea>
+
+            <label for="escalabilidade">11. Escalabilidade:</label>
+            <textarea id="escalabilidade" placeholder="Necessidades de escalabilidade" required></textarea>
+
+            <label for="usabilidade">12. Usabilidade:</label>
+            <textarea id="usabilidade" placeholder="Requisitos de usabilidade" required></textarea>
+
+            <!-- Requisitos Técnicos -->
+            <h2>Requisitos Técnicos</h2>
+            <label for="plataformas">13. Plataformas e Tecnologias:</label>
+            <textarea id="plataformas" placeholder="Descreva as plataformas e tecnologias" required></textarea>
+
+            <label for="infraestrutura">14. Infraestrutura:</label>
+            <textarea id="infraestrutura" placeholder="Descreva a infraestrutura necessária" required></textarea>
+
+            <label for="ambienteDesenvolvimento">15. Ambiente de Desenvolvimento e Testes:</label>
+            <textarea id="ambienteDesenvolvimento" placeholder="Descreva o ambiente de desenvolvimento" required></textarea>
+
+            <label for="bancoDados">16. Banco de Dados:</label>
+            <textarea id="bancoDados" placeholder="Banco de dados utilizado" required></textarea>
+
+            <!-- Cronograma e Orçamento -->
+            <h2>Cronograma e Orçamento</h2>
+            <label for="prazos">17. Prazos:</label>
+            <textarea id="prazos" placeholder="Informe os prazos principais" required></textarea>
+
+            <label for="orcamento">18. Orçamento:</label>
+            <textarea id="orcamento" placeholder="Informe o orçamento disponível" required></textarea>
+
+            <!-- Considerações Finais -->
+            <h2>Considerações Finais</h2>
+            <label for="criteriosSucesso">19. Critérios de Sucesso:</label>
+            <textarea id="criteriosSucesso" placeholder="Descreva os critérios de sucesso" required></textarea>
+
+            <label for="riscos">20. Riscos e Desafios:</label>
+            <textarea id="riscos" placeholder="Descreva os principais riscos e desafios" required></textarea>
+
+            <!-- Botão para gerar PDF -->
+            <button type="button" onclick="gerarPDF()">Gerar PDF</button>
+        </form>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="js/script.js"></script>
+    <footer></footer>
+        <p>Diego Nascimento - Analista e Desenvolvedor de Sistemas</p>
+        <div class="footer-content">
+            <a href="https://www.linkedin.com/in/diego-vale-do-nascimento-48212215b/" target="_blank">LinkedIn</a>
+            <span>|</span>
+            <a href="https://github.com/DVALENASCIMENTO" target="_blank">GitHub</a>
+        </div>
+    </footer>
+</body>
+</html>
