@@ -21,6 +21,29 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Estilização da seção de introdução */
+.intro-section {
+    background-color: #1C1C1C; /* Fundo escuro */
+    color: #FFFFFF; /* Texto branco em contraste */
+    display: flex; /* Usar Flexbox */
+    align-items: center; /* Alinhar verticalmente */
+    padding: 50px 20px;
+    justify-content: center; /* Alinhar conteúdo ao centro */
+    margin-bottom: 20px;
+}
+
+.intro-section .logo {
+    max-width: 150px;
+    margin-right: 20px; /* Espaçamento à direita da imagem */
+    border-radius: 10px; /* Bordas arredondadas */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Sombra suave */
+    transition: transform 0.3s ease; /* Transição suave para transformações */
+}
+
+.intro-section .logo:hover {
+    transform: scale(1.05); /* Aumenta a imagem em 5% ao passar o mouse */
+}
+
 h1 {
     margin-top: 5%;
     text-align: center;
@@ -112,5 +135,49 @@ button:hover {
 
     h2 {
         font-size: 1.2rem;
+    }
+}
+
+footer {
+    background: #1C1C1C; 
+    color: #FFFFFF; /* Texto branco */
+    text-align: center;
+    padding: 1em 0;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 20px;
+}
+
+footer p {
+    margin-bottom: 0.5em;
+    font-size: 1rem;
+}
+
+footer .footer-content a {
+    color: #FFFFFF; /* Texto branco */
+    text-decoration: none;
+    margin: 0 0.5em;
+}
+
+footer .footer-content a:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+    button {
+        width: 100%;
+    }
+
+    footer {
+        padding: 0.5em 0;
+    }
+
+    footer p {
+        font-size: 0.9rem;
+    }
+
+    footer .footer-content a {
+        margin: 0 0.3em;
     }
 }

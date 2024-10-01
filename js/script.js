@@ -1,6 +1,7 @@
 function gerarPDF() {
     const { jsPDF } = window.jspdf;
 
+    // Coleta dos valores dos campos
     const nomeProjeto = document.getElementById("nomeProjeto").value;
     const objetivoProjeto = document.getElementById("objetivoProjeto").value;
     const stakeholders = document.getElementById("stakeholders").value;
@@ -23,43 +24,68 @@ function gerarPDF() {
     const riscos = document.getElementById("riscos").value;
 
     const doc = new jsPDF();
-    const pageWidth = doc.internal.pageSize.width;
-    const pageHeight = doc.internal.pageSize.height;
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
     const footerMargin = 10;
+    const topMargin = 20;
+    const leftMargin = 10;
+    const rightMargin = 10;
+    const maxY = pageHeight - footerMargin;
 
-    let y = 20;
+    let y = topMargin;
     const lineHeight = 10;
-    const maxLinesPerPage = 22; // Number of lines you want per page
-    let linesCount = 0;
     let pageNumber = 1;
 
+    // Função para adicionar o rodapé
     function addFooter() {
         doc.setFontSize(10);
         doc.text(`Página ${pageNumber}`, pageWidth - 20, pageHeight - footerMargin);
         pageNumber++;
     }
 
-    function addQuestionSection() {
-        questions.forEach((item, index) => {
-            if (linesCount >= maxLinesPerPage) {
-                addFooter();
-                doc.addPage();
-                y = 10; // Reset y position on new page
-                linesCount = 0;
-            }
-            doc.text(item.question, 10, y);
-            y += lineHeight;
-            doc.text(item.answer, 10, y);
-            y += 2 * lineHeight;
-            linesCount += 2;
-        });
-        addFooter(); // Add footer to the last page
+    // Função para verificar se é necessário adicionar uma nova página
+    function addPageIfNeeded(requiredSpace = lineHeight) {
+        if (y + requiredSpace > maxY) {
+            addFooter();
+            doc.addPage();
+            y = topMargin;
+        }
     }
 
-    doc.setFontSize(16);
-    doc.text("ReqForm - Questionário para Levantamento de Requisitos", 10, 10);
+    // Função para dividir o texto conforme a largura disponível
+    function splitText(text, maxWidth) {
+        return doc.splitTextToSize(text, maxWidth);
+    }
 
-    doc.setFontSize(12);
+    // Função para adicionar uma pergunta e sua resposta
+    function addQuestion(question, answer) {
+        addPageIfNeeded(lineHeight);
+        doc.text(question, leftMargin, y);
+        y += lineHeight;
+
+        const splitAnswer = splitText(answer, pageWidth - leftMargin - rightMargin - 10); // 10 é para indentação
+        splitAnswer.forEach(line => {
+            addPageIfNeeded(lineHeight);
+            doc.text(line, leftMargin + 10, y); // Indentação de 10 unidades
+            y += lineHeight;
+        });
+        y += lineHeight; // Espaçamento adicional após cada resposta
+    }
+
+    // Adiciona o título e parágrafo conforme solicitado
+    doc.setFontSize(22);
+    let title = "ReqForm";
+    let titleWidth = doc.getTextWidth(title);
+    doc.text(title, (pageWidth - titleWidth) / 2, y); // Centraliza o título H1
+    y += lineHeight + 5;
+
+    doc.setFontSize(14);
+    let paragraph = '"Software Requirements Document Generator"';
+    let paragraphWidth = doc.getTextWidth(paragraph);
+    doc.text(paragraph, (pageWidth - paragraphWidth) / 2, y); // Centraliza o parágrafo
+    y += lineHeight + 10;
+
+    // Lista de perguntas e respostas
     const questions = [
         { question: "Nome do Projeto:", answer: nomeProjeto },
         { question: "Objetivo do Projeto:", answer: objetivoProjeto },
@@ -83,6 +109,14 @@ function gerarPDF() {
         { question: "Riscos e Desafios:", answer: riscos }
     ];
 
-    addQuestionSection();
-    doc.save("Levantamento_Requisitos.pdf");
+    // Adiciona todas as perguntas e respostas
+    questions.forEach(item => {
+        addQuestion(item.question, item.answer);
+    });
+
+    // Adiciona o rodapé na última página
+    addFooter();
+
+    // Salva o PDF
+    doc.save("ReqForm.pdf");
 }
