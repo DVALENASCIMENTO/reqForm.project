@@ -1,3 +1,81 @@
+// Função para abrir o popup e carregar o conteúdo do JSON
+function abrirPopup() {
+    fetch('sobre.json')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Erro ao carregar o arquivo JSON.');
+            }
+            return response.json();
+        })
+        .then(data => {
+            // Inserir o título
+            const titulo = document.getElementById('sobreTitulo');
+            titulo.textContent = data.titulo || "Título não disponível";
+
+            // Inserir a descrição
+            const conteudoDiv = document.getElementById('sobreConteudo');
+            conteudoDiv.innerHTML = ''; // Limpar conteúdo anterior
+
+            const descricaoP = document.createElement('p');
+            descricaoP.textContent = data.descricao || "Descrição não disponível";
+            conteudoDiv.appendChild(descricaoP);
+
+            // Verifica se 'secoes' é um array e itera sobre ele
+            if (Array.isArray(data.secoes)) {
+                data.secoes.forEach(secao => {
+                    const secaoTitulo = document.createElement('h3');
+                    secaoTitulo.textContent = secao.titulo || "Título da seção não disponível";
+                    conteudoDiv.appendChild(secaoTitulo);
+
+                    // Verifica se 'conteudo' é um array antes de iterar
+                    if (Array.isArray(secao.conteudo)) {
+                        secao.conteudo.forEach(item => {
+                            if (typeof item === 'string') {
+                                const paragrafo = document.createElement('p');
+                                paragrafo.textContent = item;
+                                conteudoDiv.appendChild(paragrafo);
+                            } else if (typeof item === 'object' && item !== null) {
+                                const subSecaoTitulo = document.createElement('h4');
+                                subSecaoTitulo.textContent = item.titulo || "Título da subseção não disponível";
+                                conteudoDiv.appendChild(subSecaoTitulo);
+
+                                // Verifica se 'itens' é um array antes de iterar
+                                if (Array.isArray(item.itens)) {
+                                    const lista = document.createElement('ul');
+                                    item.itens.forEach(itemLista => {
+                                        const li = document.createElement('li');
+                                        li.textContent = itemLista;
+                                        lista.appendChild(li);
+                                    });
+                                    conteudoDiv.appendChild(lista);
+                                }
+                            }
+                        });
+                    }
+                });
+            } else {
+                console.error("A propriedade 'secoes' não é um array.");
+                const erroMensagem = document.createElement('p');
+                erroMensagem.textContent = "Nenhuma seção disponível.";
+                conteudoDiv.appendChild(erroMensagem);
+            }
+
+            // Mostrar o popup
+            document.getElementById('popupSobre').style.display = 'block';
+        })
+        .catch(error => {
+            console.error('Erro:', error);
+            alert('Erro ao carregar informações sobre o projeto.');
+        });
+}
+
+// Função para fechar o popup
+function fecharPopup() {
+    document.getElementById('popupSobre').style.display = 'none';
+}
+
+
+
 function gerarPDF() {
     const { jsPDF } = window.jspdf;
 

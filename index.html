@@ -13,8 +13,11 @@
             <h1>ReqForm</h1>
             <p>"Software Requirements Document Generator"</p>
         </div>
-        
+        <aside class="about-container">
+            <button type="button" onclick="abrirPopup()">?</button>
+        </aside>    
     </div>
+
     <div class="container">
         <form id="questionario">
             <!-- Informações Gerais -->
@@ -93,6 +96,16 @@
             <button type="button" onclick="gerarPDF()">Gerar PDF</button>
         </form>
     </div>
+
+    <!-- Popup para informações sobre -->
+    <div id="popupSobre" class="popup">
+        <div class="popup-content">
+            <span class="close" onclick="fecharPopup()">&times;</span>
+            <h2 id="sobreTitulo"></h2>
+            <div id="sobreConteudo"></div>
+        </div>
+    </div>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="js/script.js"></script>
     <footer>
